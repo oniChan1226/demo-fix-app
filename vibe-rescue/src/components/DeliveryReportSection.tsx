@@ -1,4 +1,5 @@
 import { sampleDeliveryReport } from '../data/sampleDeliveryReport'
+import { downloadSampleReport } from '../lib/downloadSampleReport'
 import { PageContainer } from './PageContainer'
 
 function ReportSectionHeading({ children }: { children: string }) {
@@ -46,6 +47,22 @@ export function DeliveryReportSection() {
             <p className="text-section-desc">
               The same format you receive after every fix on Fiverr.
             </p>
+            <button
+              type="button"
+              onClick={downloadSampleReport}
+              className="text-ui mt-6 inline-flex min-h-11 w-full max-w-xs items-center justify-center gap-2 rounded-lg border border-border bg-surface px-5 py-3 font-medium text-text transition-colors hover:border-muted hover:bg-surface-elevated focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fixed sm:w-auto"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M12 3v12m0 0l4-4m-4 4l-4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"
+                  stroke="currentColor"
+                  strokeWidth="1.75"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              Download sample report
+            </button>
           </div>
 
           <article className="rounded-xl border border-border bg-surface">

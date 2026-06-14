@@ -140,4 +140,87 @@
   .pb-sticky-cta {
     padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
   }
+
+  .stack-marquee {
+    position: relative;
+    overflow: hidden;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+  }
+
+  .stack-marquee-fade {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    width: clamp(2rem, 8vw, 5rem);
+  }
+
+  .stack-marquee-fade-left {
+    left: 0;
+    background: linear-gradient(to right, var(--theme-bg), transparent);
+  }
+
+  .stack-marquee-fade-right {
+    right: 0;
+    background: linear-gradient(to left, var(--theme-bg), transparent);
+  }
+
+  .stack-marquee-track {
+    display: flex;
+    width: max-content;
+    gap: 0.75rem;
+    padding-block: 0.25rem;
+    animation: stack-marquee 45s linear infinite;
+    will-change: transform;
+  }
+
+  .stack-marquee:hover .stack-marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes stack-marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stack-marquee {
+      mask-image: none;
+      -webkit-mask-image: none;
+      overflow-x: auto;
+      padding-inline: 1rem;
+      scrollbar-width: none;
+    }
+
+    .stack-marquee::-webkit-scrollbar {
+      display: none;
+    }
+
+    .stack-marquee-fade {
+      display: none;
+    }
+
+    .stack-marquee-track {
+      animation: none;
+      padding-inline: 0.25rem;
+    }
+  }
 }
