@@ -27,12 +27,23 @@ export function HowItWorks() {
           ))}
         </div>
 
-        <div className="mt-8 rounded-xl border border-border/60 bg-surface/50 px-5 py-4 text-center sm:px-6">
+        <div className="mt-8 rounded-xl border border-border/60 bg-surface/50 px-4 py-5 text-center sm:px-6">
           <p className="text-ui text-muted">
-            <span className="font-medium text-text">Included:</span>{' '}
-            {includedItems.join(' · ')}
+            <span className="font-medium text-text">Included:</span>
           </p>
-          <p className="text-caption mt-2 tracking-wide text-muted/80">
+          <ul className="mt-3 flex flex-wrap justify-center gap-x-2 gap-y-1.5 text-ui text-muted">
+            {includedItems.map((item, i) => (
+              <li key={item} className="inline-flex items-center">
+                {i > 0 && (
+                  <span className="mr-2 text-muted/40" aria-hidden="true">
+                    ·
+                  </span>
+                )}
+                {item}
+              </li>
+            ))}
+          </ul>
+          <p className="text-caption mt-3 tracking-wide text-muted/80">
             {stackTools.join(' · ')}
           </p>
         </div>

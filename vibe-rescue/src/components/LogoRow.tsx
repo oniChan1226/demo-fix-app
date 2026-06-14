@@ -23,7 +23,7 @@ export function LogoRow() {
     <section className="pb-12" aria-label="Built with common vibe-coding tools">
       <PageContainer>
         <p className="text-label mb-5 text-center">Common stack</p>
-        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:justify-center [&::-webkit-scrollbar]:hidden">
+        <div className="flex flex-wrap justify-center gap-3">
           <Logo name="Lovable">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path

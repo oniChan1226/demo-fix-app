@@ -44,18 +44,18 @@ export function Hero() {
             <span className="font-medium text-text">{site.authorName}</span>
           </p>
 
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
-            <FiverrCta label="Order on Fiverr" />
-            <a href="#cases" className={linkClass}>
+          <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center">
+            <FiverrCta label="Order on Fiverr" className="w-full sm:w-auto" />
+            <a href="#cases" className={`${linkClass} w-full sm:w-auto`}>
               See common issues
             </a>
-            <a href="#report" className={ghostClass}>
+            <a href="#report" className={`${ghostClass} w-full sm:w-auto`}>
               View sample report
             </a>
             <button
               type="button"
               onClick={toggleGlobalDemo}
-              className={`${ghostClass} gap-2`}
+              className={`${ghostClass} w-full gap-2 sm:w-auto`}
             >
               <span
                 className={`h-2 w-2 rounded-full transition-colors duration-200 ${globalMode === 'fixed' ? 'bg-fixed' : 'bg-broken'}`}

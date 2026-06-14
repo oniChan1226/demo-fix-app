@@ -13,7 +13,7 @@ export function Footer({ footerRef }: FooterProps) {
         <p className="text-body max-w-lg text-muted">
           Every fix includes a written report covering what broke, why it happened, and what changed.
         </p>
-        <FiverrCta label="Hire me on Fiverr" />
+        <FiverrCta label="Hire me on Fiverr" className="w-full max-w-sm sm:w-auto" />
         <p className="text-caption text-muted/60">
           © {new Date().getFullYear()} {site.authorName}. Demo site. No real data or APIs.
         </p>

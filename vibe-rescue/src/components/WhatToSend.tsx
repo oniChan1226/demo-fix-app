@@ -29,8 +29,8 @@ export function WhatToSend() {
               </li>
             ))}
           </ol>
-          <div className="mt-8 flex justify-center">
-            <FiverrCta label="Start on Fiverr" />
+          <div className="mt-8 flex flex-col items-stretch gap-3 sm:items-center">
+            <FiverrCta label="Start on Fiverr" className="w-full sm:w-auto" />
           </div>
         </div>
       </PageContainer>

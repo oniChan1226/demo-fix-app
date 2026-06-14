@@ -16,11 +16,11 @@ export function SiteHeader() {
           >
             i
           </span>
-          <p className="text-caption truncate leading-normal text-muted sm:text-ui">
+          <p className="text-caption min-w-0 flex-1 leading-snug text-muted sm:text-ui">
             <span className="font-medium text-heading">Demo only</span>
             <span className="hidden sm:inline">
               {' '}
-              Simulated scenarios, not real errors.
+              — simulated scenarios, not real errors.
             </span>
           </p>
         </div>

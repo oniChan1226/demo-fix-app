@@ -58,6 +58,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -73,6 +74,7 @@
     @apply bg-bg text-text font-sans;
     margin: 0;
     min-height: 100vh;
+    overflow-x: clip;
     font-size: var(--text-base);
     line-height: 1.65;
     letter-spacing: -0.011em;
@@ -129,5 +131,13 @@
   .text-card-title {
     font-size: clamp(1.1875rem, calc(1.05rem + 0.45vw + 0.15vh), 1.4375rem);
     @apply font-semibold tracking-tight text-heading;
+  }
+
+  .safe-bottom {
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+
+  .pb-sticky-cta {
+    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
   }
 }

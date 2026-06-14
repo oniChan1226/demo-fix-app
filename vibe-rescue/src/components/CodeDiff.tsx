@@ -58,10 +58,12 @@ export function CodeDiff({ lines }: CodeDiffProps) {
         </svg>
       </button>
       {open && (
-        <div className="mt-2 overflow-hidden rounded-lg border border-border bg-code-bg py-2">
-          {lines.map((line, index) => (
-            <DiffLineRow key={`${index}-${line.content}`} line={line} lineNumber={index + 1} />
-          ))}
+        <div className="mt-2 overflow-x-auto rounded-lg border border-border bg-code-bg py-2 [-webkit-overflow-scrolling:touch]">
+          <div className="min-w-[min(100%,280px)]">
+            {lines.map((line, index) => (
+              <DiffLineRow key={`${index}-${line.content}`} line={line} lineNumber={index + 1} />
+            ))}
+          </div>
         </div>
       )}
     </div>

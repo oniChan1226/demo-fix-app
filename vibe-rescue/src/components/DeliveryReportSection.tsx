@@ -49,7 +49,7 @@ export function DeliveryReportSection() {
           </div>
 
           <article className="rounded-xl border border-border bg-surface">
-            <header className="border-b border-border px-6 py-7 sm:px-8 sm:py-8">
+            <header className="border-b border-border px-4 py-6 sm:px-8 sm:py-8">
               <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.25em] text-muted">
                 Fix report
               </p>
@@ -57,18 +57,28 @@ export function DeliveryReportSection() {
               <p className="text-caption mt-3 leading-relaxed text-muted">
                 {report.disclaimer}
               </p>
-              <div className="mt-5 flex flex-wrap items-center gap-3">
-                <span className="inline-flex rounded-md bg-fixed/15 px-3 py-1 text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-fixed">
+              <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+                <span className="inline-flex w-fit rounded-md bg-fixed/15 px-3 py-1 text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-fixed">
                   Fixed &amp; verified
                 </span>
-                <p className="text-caption text-muted">
-                  Stack: {report.stack} · Severity: {report.severity} · Turnaround:{' '}
-                  {report.turnaround}
-                </p>
+                <dl className="text-caption flex flex-col gap-1 text-muted sm:flex-row sm:flex-wrap sm:gap-x-3 sm:gap-y-1">
+                  <div>
+                    <dt className="sr-only">Stack</dt>
+                    <dd>Stack: {report.stack}</dd>
+                  </div>
+                  <div>
+                    <dt className="sr-only">Severity</dt>
+                    <dd>Severity: {report.severity}</dd>
+                  </div>
+                  <div>
+                    <dt className="sr-only">Turnaround</dt>
+                    <dd>Turnaround: {report.turnaround}</dd>
+                  </div>
+                </dl>
               </div>
             </header>
 
-            <div className="space-y-8 px-6 py-8 sm:px-8">
+            <div className="space-y-8 px-4 py-8 sm:px-8">
               <section>
                 <ReportSectionHeading>The symptom</ReportSectionHeading>
                 <ReportParagraphs paragraphs={report.symptom} />
@@ -95,7 +105,7 @@ export function DeliveryReportSection() {
               </section>
             </div>
 
-            <footer className="border-t border-border bg-surface-elevated/40 px-6 py-6 sm:px-8">
+            <footer className="border-t border-border bg-surface-elevated/40 px-4 py-6 sm:px-8">
               <p className="text-body leading-relaxed text-text/90">{report.orderNote}</p>
               <p className="text-ui mt-5 font-medium text-heading">{report.authorLine}</p>
               <p className="text-caption mt-1 text-muted">{report.authorSubline}</p>

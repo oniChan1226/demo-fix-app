@@ -27,7 +27,7 @@ export function FiverrCta({
       href={site.fiverrUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex min-h-11 items-center justify-center rounded-lg font-medium tracking-tight transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
+      className={`inline-flex min-h-11 w-full items-center justify-center rounded-lg font-medium tracking-tight transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 sm:w-auto ${
         isCompact
           ? `${variantClasses.compact} text-ui`
           : `${variantClasses[variant]} px-6 py-3 text-ui`

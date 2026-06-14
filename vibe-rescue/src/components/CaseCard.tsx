@@ -26,7 +26,7 @@ export function CaseCard({ caseStudy }: CaseCardProps) {
   return (
     <article
       id={caseStudy.id}
-      className={`scroll-mt-28 flex flex-col rounded-xl border bg-surface p-5 transition-[border-color,box-shadow] duration-300 sm:p-6 ${
+      className={`scroll-mt-28 flex min-w-0 flex-col rounded-xl border bg-surface p-4 transition-[border-color,box-shadow] duration-300 sm:p-6 ${
         isFixed
           ? 'border-fixed/50 shadow-[0_0_24px_rgba(34,197,94,0.15)]'
           : 'border-broken/50 shadow-[0_0_24px_rgba(239,68,68,0.15)]'
@@ -49,17 +49,18 @@ export function CaseCard({ caseStudy }: CaseCardProps) {
         </span>
       </div>
 
-      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <h2 className="text-card-title">{caseStudy.title}</h2>
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <h2 className="text-card-title min-w-0 flex-1">{caseStudy.title}</h2>
         <ToggleSwitch
           id={caseStudy.id}
           isFixed={isFixed}
           onChange={handleToggle}
+          className="w-full shrink-0 sm:w-auto"
         />
       </div>
 
       <div
-        className={`relative aspect-[16/10] overflow-hidden rounded-lg border bg-surface-elevated transition-colors duration-300 ${
+        className={`relative min-h-[160px] overflow-hidden rounded-lg border bg-surface-elevated transition-colors duration-300 sm:min-h-[180px] sm:aspect-[16/10] ${
           isFixed ? 'border-fixed/30' : 'border-broken/30'
         }`}
         aria-live="polite"
@@ -82,17 +83,26 @@ export function CaseCard({ caseStudy }: CaseCardProps) {
 
         <div className="rounded-lg border border-border/60 bg-surface-elevated/50 px-4 py-3">
           <p className="text-label">The fix</p>
-          <p className="text-ui mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 leading-relaxed">
-            <span className="text-broken">{caseStudy.problem}</span>
-            <span className="text-muted" aria-hidden="true">
-              →
-            </span>
-            <span className="text-muted">{caseStudy.cause}</span>
-            <span className="text-muted" aria-hidden="true">
-              →
-            </span>
-            <span className="text-fixed">{caseStudy.fix}</span>
-          </p>
+          <dl className="text-ui mt-2 space-y-2 sm:space-y-0">
+            <div className="flex flex-col gap-0.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-2 sm:gap-y-1">
+              <dt className="sr-only">Problem</dt>
+              <dd className="text-broken leading-relaxed">{caseStudy.problem}</dd>
+              <span className="hidden text-muted sm:inline" aria-hidden="true">
+                →
+              </span>
+            </div>
+            <div className="flex flex-col gap-0.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-2 sm:gap-y-1">
+              <dt className="sr-only">Cause</dt>
+              <dd className="text-muted leading-relaxed">{caseStudy.cause}</dd>
+              <span className="hidden text-muted sm:inline" aria-hidden="true">
+                →
+              </span>
+            </div>
+            <div>
+              <dt className="sr-only">Fix</dt>
+              <dd className="text-fixed leading-relaxed">{caseStudy.fix}</dd>
+            </div>
+          </dl>
         </div>
       </div>
 
@@ -101,7 +111,7 @@ export function CaseCard({ caseStudy }: CaseCardProps) {
           type="button"
           onClick={() => setReportOpen((prev) => !prev)}
           aria-expanded={reportOpen}
-          className="flex min-h-12 w-full items-center justify-between rounded-lg border border-border bg-surface-elevated px-4 py-3 text-left text-ui text-muted transition-colors hover:border-muted hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fixed"
+          className="flex min-h-12 w-full items-center justify-between gap-3 rounded-lg border border-border bg-surface-elevated px-4 py-3 text-left text-ui text-muted transition-colors hover:border-muted hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fixed"
         >
           <span className="font-medium">Issue summary</span>
           <svg

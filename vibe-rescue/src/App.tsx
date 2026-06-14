@@ -42,7 +42,7 @@ export default function App() {
       <LogoRow />
       <HowItWorks />
 
-      <main className="pb-24 md:pb-16">
+      <main className="pb-sticky-cta md:pb-16">
         <PageContainer className="scroll-mt-28 pt-4">
           <section id="cases">
             <CaseFilterBar activeTag={activeTag} onTagChange={handleTagChange} />
@@ -52,7 +52,7 @@ export default function App() {
                 No cases match this filter.
               </p>
             ) : (
-              <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+              <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
                 {filteredCases.map((caseStudy) => (
                   <CaseCard key={caseStudy.id} caseStudy={caseStudy} />
                 ))}

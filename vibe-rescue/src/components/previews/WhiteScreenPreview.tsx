@@ -47,7 +47,7 @@ export function WhiteScreenPreview({ isFixed }: PreviewProps) {
             Live
           </span>
         </div>
-        <div className="grid flex-1 grid-cols-3 gap-2">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-2">
           {['Users', 'Revenue', 'Orders'].map((label) => (
             <div
               key={label}

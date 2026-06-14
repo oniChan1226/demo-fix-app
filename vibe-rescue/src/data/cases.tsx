@@ -1,7 +1,10 @@
 import type { ReactNode } from 'react'
 import { AuthPreview } from '../components/previews/AuthPreview'
 import { ApiKeyPreview } from '../components/previews/ApiKeyPreview'
+import { BuildErrorPreview } from '../components/previews/BuildErrorPreview'
+import { CorsPreview } from '../components/previews/CorsPreview'
 import { EnvVarsPreview } from '../components/previews/EnvVarsPreview'
+import { IncompleteFeaturePreview } from '../components/previews/IncompleteFeaturePreview'
 import { RlsPreview } from '../components/previews/RlsPreview'
 import { StripePreview } from '../components/previews/StripePreview'
 import { WhiteScreenPreview } from '../components/previews/WhiteScreenPreview'
@@ -11,7 +14,15 @@ export type DiffLine = {
   content: string
 }
 
-export type CaseTag = 'crash' | 'auth' | 'payments' | 'security' | 'deploy' | 'database'
+export type CaseTag =
+  | 'crash'
+  | 'auth'
+  | 'payments'
+  | 'security'
+  | 'deploy'
+  | 'database'
+  | 'api'
+  | 'feature'
 
 export type FixReport = {
   symptom: string
@@ -41,8 +52,10 @@ export const tagLabels: Record<CaseTag, string> = {
   auth: 'Login / auth',
   payments: 'Payments',
   security: 'Security',
-  deploy: 'Deploy / env vars',
+  deploy: 'Deploy / build',
   database: 'Database / RLS',
+  api: 'API / CORS / 500',
+  feature: 'Half-finished UI',
 }
 
 export const cases: CaseStudy[] = [
@@ -239,6 +252,107 @@ export const cases: CaseStudy[] = [
       prevention: 'Always test RLS policies with authenticated sessions before going live.',
     },
     renderPreview: (isFixed) => <RlsPreview isFixed={isFixed} />,
+  },
+  {
+    id: 'cors-api-error',
+    title: 'CORS / API 500 errors',
+    tags: ['api'],
+    severity: 'High',
+    typicalFixTime: '2–4 hours',
+    whatWasWrong:
+      'Frontend requests failed with CORS errors and 500 responses because the API route was missing headers and crashed on bad input.',
+    problem: 'Network tab shows CORS + 500',
+    cause: 'No CORS headers + unhandled server error',
+    fix: 'Added API route with CORS + input validation',
+    diff: [
+      { type: 'context', content: '// server/api/users.ts' },
+      { type: 'remove', content: 'export default (req, res) => res.json(db.users)' },
+      { type: 'add', content: 'res.setHeader("Access-Control-Allow-Origin", allowedOrigin)' },
+      { type: 'add', content: 'if (!req.headers.authorization) return res.status(401).json({ error: "Unauthorized" })' },
+      { type: 'add', content: 'try { return res.json(await getUsers()) } catch (e) { return res.status(500).json({ error: e.message }) }' },
+    ],
+    report: {
+      symptom:
+        'Saving or loading data shows a toast error. Browser console shows CORS blocked and Network tab returns 500.',
+      rootCause:
+        'The API route had no Access-Control-Allow-Origin header for the production domain, and the handler threw when auth was missing.',
+      changes: [
+        'Added CORS headers for production and preview URLs',
+        'Wrapped handler in try/catch with structured 401/500 responses',
+        'Pointed frontend fetch to the correct server route instead of a dead endpoint',
+      ],
+      verify: 'Open the app on production — data loads without CORS errors and actions return 200.',
+      prevention: 'Test API routes from the deployed origin, not just localhost, and always return JSON errors.',
+    },
+    renderPreview: (isFixed) => <CorsPreview isFixed={isFixed} />,
+  },
+  {
+    id: 'deploy-build-error',
+    title: 'Build fails on deploy',
+    tags: ['deploy'],
+    severity: 'Critical',
+    typicalFixTime: '1–3 hours',
+    whatWasWrong:
+      'Deploy failed during the build step because TypeScript errors and broken import paths slipped through locally untested builds.',
+    problem: 'Vercel build log red',
+    cause: 'TS errors + wrong @/ alias paths',
+    fix: 'Fixed imports, ran production build locally, redeployed',
+    diff: [
+      { type: 'context', content: '// tsconfig + vite.config' },
+      { type: 'remove', content: 'import { cn } from "@/lib/utils" // path not resolved on CI' },
+      { type: 'add', content: 'import { cn } from "../lib/utils"' },
+      { type: 'add', content: 'npm run build  // verify locally before push' },
+      { type: 'add', content: 'strict: true in tsconfig to catch undefined early' },
+    ],
+    report: {
+      symptom:
+        'Git push succeeds but Vercel deployment fails. Build logs show TypeScript errors the app never hit in dev mode.',
+      rootCause:
+        'Broken path aliases and strict-null issues were not caught because production build was never run before deploy.',
+      changes: [
+        'Fixed @/ import paths to match Vite alias config',
+        'Resolved TypeScript strict errors in Settings and Dashboard',
+        'Verified npm run build passes locally before redeploy',
+      ],
+      verify: 'Vercel deployment shows Ready — production URL loads without a build failure banner.',
+      prevention: 'Run npm run build before every deploy; enable strict TypeScript in CI.',
+    },
+    renderPreview: (isFixed) => <BuildErrorPreview isFixed={isFixed} />,
+  },
+  {
+    id: 'incomplete-feature',
+    title: 'Half-finished feature',
+    tags: ['feature'],
+    severity: 'High',
+    typicalFixTime: '2–5 hours',
+    whatWasWrong:
+      'AI generated a settings screen with placeholder UI but never wired the save button to Supabase.',
+    problem: 'Button visible, does nothing',
+    cause: 'Empty handler + TODO left in code',
+    fix: 'Connected form state, validation, and Supabase update',
+    diff: [
+      { type: 'context', content: '// Settings.tsx' },
+      { type: 'remove', content: 'onClick={() => { /* TODO: save */ }}' },
+      { type: 'remove', content: '<button disabled>Save changes — not wired up</button>' },
+      { type: 'add', content: 'const onSave = async () => {' },
+      { type: 'add', content: '  await supabase.from("profiles").update(form).eq("id", user.id)' },
+      { type: 'add', content: '  toast.success("Settings saved")' },
+      { type: 'context', content: '}' },
+    ],
+    report: {
+      symptom:
+        'Settings page looks complete but Save does nothing — no error, no loading state, no data persisted.',
+      rootCause:
+        'The UI was scaffolded by AI with a disabled button and an empty onClick handler marked TODO.',
+      changes: [
+        'Wired form state to controlled inputs with validation',
+        'Implemented Supabase update on save with loading and error feedback',
+        'Removed placeholder copy and disabled states',
+      ],
+      verify: 'Change a setting, click Save — value persists after refresh and toast confirms success.',
+      prevention: 'Search for TODO/disabled placeholders before shipping; test every interactive control end-to-end.',
+    },
+    renderPreview: (isFixed) => <IncompleteFeaturePreview isFixed={isFixed} />,
   },
 ]
 
