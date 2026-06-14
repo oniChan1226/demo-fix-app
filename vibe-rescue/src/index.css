@@ -55,6 +55,15 @@
   --theme-banner-border: #2a3140;
 }
 
+@keyframes stack-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -179,26 +188,24 @@
     background: linear-gradient(to left, var(--theme-bg), transparent);
   }
 
-  .stack-marquee-track {
+  .stack-marquee-inner {
     display: flex;
     width: max-content;
-    gap: 0.75rem;
     padding-block: 0.25rem;
-    animation: stack-marquee 45s linear infinite;
+    animation: stack-marquee 32s linear infinite;
     will-change: transform;
   }
 
-  .stack-marquee:hover .stack-marquee-track {
-    animation-play-state: paused;
+  .stack-marquee-group {
+    display: flex;
+    shrink: 0;
+    align-items: center;
+    gap: 0.75rem;
+    padding-right: 0.75rem;
   }
 
-  @keyframes stack-marquee {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
+  .stack-marquee:hover .stack-marquee-inner {
+    animation-play-state: paused;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -218,9 +225,8 @@
       display: none;
     }
 
-    .stack-marquee-track {
+    .stack-marquee-inner {
       animation: none;
-      padding-inline: 0.25rem;
     }
   }
 }
