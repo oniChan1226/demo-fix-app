@@ -18,14 +18,10 @@ const filterTags: Array<CaseTag | 'all'> = [
 
 export function CaseFilterBar({ activeTag, onTagChange }: CaseFilterBarProps) {
   return (
-    <div className="mb-6">
-      <h2 className="text-section">
-        Which one looks like yours?
-      </h2>
-      <p className="text-section-desc mt-1.5">
-        Filter by issue type.
-      </p>
-      <div className="mt-4 flex snap-x snap-mandatory gap-2 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <div className="mb-8">
+      <h2 className="text-section">Which one looks like yours?</h2>
+      <p className="text-section-desc mt-1.5">Filter by issue type.</p>
+      <div className="mt-5 flex snap-x snap-mandatory gap-2.5 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {filterTags.map((tag) => {
           const isActive = activeTag === tag
           const label = tag === 'all' ? 'All' : tagLabels[tag]
@@ -36,10 +32,10 @@ export function CaseFilterBar({ activeTag, onTagChange }: CaseFilterBarProps) {
               type="button"
               onClick={() => onTagChange(tag)}
               aria-pressed={isActive}
-              className={`min-h-10 shrink-0 snap-start rounded-full border px-3.5 py-2 text-xs font-medium tracking-tight transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fixed sm:text-sm sm:px-4 ${
+              className={`text-ui min-h-11 shrink-0 snap-start rounded-full border px-4 py-2.5 font-medium tracking-tight transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fixed sm:px-5 ${
                 isActive
                   ? 'border-fixed/50 bg-fixed/15 text-fixed'
-                  : 'border-border bg-surface text-muted hover:border-border hover:text-text'
+                  : 'border-border bg-surface text-muted hover:border-muted hover:text-text'
               }`}
             >
               {label}

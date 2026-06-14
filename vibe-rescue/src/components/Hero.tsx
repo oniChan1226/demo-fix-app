@@ -3,6 +3,12 @@ import { useDemo } from '../context/DemoContext'
 import { FiverrCta } from './FiverrCta'
 import { PageContainer } from './PageContainer'
 
+const linkClass =
+  'inline-flex min-h-11 items-center justify-center rounded-lg border border-border bg-surface px-6 py-3 text-ui font-medium text-text transition-colors hover:border-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fixed'
+
+const ghostClass =
+  'inline-flex min-h-11 items-center justify-center rounded-lg px-4 py-2.5 text-ui font-medium text-muted transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fixed'
+
 export function Hero() {
   const { globalMode, setGlobalMode } = useDemo()
 
@@ -11,7 +17,7 @@ export function Hero() {
   }
 
   return (
-    <section className="relative overflow-hidden pb-8 pt-8 md:pb-10 md:pt-12">
+    <section className="relative overflow-hidden pb-10 pt-10 md:pb-12 md:pt-14">
       <div
         className="pointer-events-none absolute inset-0 opacity-30 dark:opacity-40"
         aria-hidden="true"
@@ -31,36 +37,28 @@ export function Hero() {
       />
 
       <PageContainer className="relative text-center">
-        <div className="mx-auto max-w-2xl">
-          <h1 className="text-display">
-            Broken AI App → Fixed &amp; Live
-          </h1>
-          <p className="mx-auto mt-4 max-w-lg text-section-desc">
+        <div className="mx-auto max-w-3xl">
+          <h1 className="text-display">Broken AI App → Fixed &amp; Live</h1>
+          <p className="mx-auto mt-5 max-w-xl text-section-desc">
             {site.gigTagline}{' '}
             <span className="font-medium text-text">{site.authorName}</span>
           </p>
 
-          <div className="mt-7 flex flex-col items-center justify-center gap-2.5 sm:flex-row sm:flex-wrap">
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
             <FiverrCta label="Order on Fiverr" />
-            <a
-              href="#cases"
-              className="inline-flex min-h-10 items-center justify-center rounded-lg border border-border bg-surface px-5 py-2.5 text-sm font-medium text-text transition-colors hover:border-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fixed"
-            >
+            <a href="#cases" className={linkClass}>
               See common issues
             </a>
-            <a
-              href="#report"
-              className="inline-flex min-h-10 items-center justify-center rounded-lg px-3 py-2 text-sm font-medium text-muted transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fixed"
-            >
+            <a href="#report" className={ghostClass}>
               View sample report
             </a>
             <button
               type="button"
               onClick={toggleGlobalDemo}
-              className="inline-flex min-h-10 items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fixed"
+              className={`${ghostClass} gap-2`}
             >
               <span
-                className={`h-1.5 w-1.5 rounded-full ${globalMode === 'fixed' ? 'bg-fixed' : 'bg-broken'}`}
+                className={`h-2 w-2 rounded-full transition-colors duration-200 ${globalMode === 'fixed' ? 'bg-fixed' : 'bg-broken'}`}
                 aria-hidden="true"
               />
               {globalMode === 'fixed' ? 'Show all broken' : 'Show all fixed'}

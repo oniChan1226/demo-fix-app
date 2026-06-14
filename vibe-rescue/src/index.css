@@ -17,8 +17,6 @@
   --color-banner-border: var(--theme-banner-border);
   --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
-  --tracking-tighter: -0.03em;
-  --tracking-label: 0.14em;
 }
 
 :root {
@@ -33,6 +31,14 @@
   --theme-code-bg: #f4f6f8;
   --theme-banner-bg: #f8fafc;
   --theme-banner-border: #e8ecf0;
+  --text-base: clamp(1rem, calc(0.92rem + 0.35vw + 0.18vh), 1.1875rem);
+  --text-display: clamp(2.125rem, calc(1.4rem + 2.8vw + 1.1vh), 3.75rem);
+  --text-section: clamp(1.4375rem, calc(1.1rem + 1.1vw + 0.45vh), 2.125rem);
+  --text-section-desc: clamp(1.0625rem, calc(0.95rem + 0.45vw + 0.2vh), 1.3125rem);
+  --text-label: clamp(0.75rem, calc(0.68rem + 0.22vw + 0.1vh), 0.875rem);
+  --text-body: clamp(1.03125rem, calc(0.94rem + 0.28vw + 0.12vh), 1.1875rem);
+  --text-caption: clamp(0.8125rem, calc(0.75rem + 0.2vw + 0.08vh), 0.9375rem);
+  --text-ui: clamp(0.9375rem, calc(0.86rem + 0.25vw + 0.1vh), 1.0625rem);
 }
 
 .dark {
@@ -61,22 +67,14 @@
     html {
       scroll-behavior: auto;
     }
-
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
   }
 
   body {
     @apply bg-bg text-text font-sans;
     margin: 0;
     min-height: 100vh;
-    font-size: 0.9375rem;
-    line-height: 1.6;
+    font-size: var(--text-base);
+    line-height: 1.65;
     letter-spacing: -0.011em;
     transition: background-color 0.2s ease, color 0.2s ease;
   }
@@ -96,22 +94,40 @@
 
 @layer components {
   .text-display {
-    @apply text-[2rem] font-semibold leading-[1.12] tracking-[-0.03em] text-heading sm:text-4xl md:text-[2.75rem];
+    font-size: var(--text-display);
+    @apply font-semibold leading-[1.1] tracking-[-0.03em] text-heading;
   }
 
   .text-section {
-    @apply text-xl font-semibold leading-snug tracking-[-0.02em] text-heading md:text-2xl;
+    font-size: var(--text-section);
+    @apply font-semibold leading-snug tracking-[-0.02em] text-heading;
   }
 
   .text-section-desc {
-    @apply mt-2 text-sm leading-relaxed text-muted md:text-[0.9375rem];
+    font-size: var(--text-section-desc);
+    @apply mt-2 leading-relaxed text-muted;
   }
 
   .text-label {
-    @apply text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-muted;
+    font-size: var(--text-label);
+    @apply font-medium uppercase tracking-[0.12em] text-muted;
   }
 
   .text-body {
-    @apply text-[0.9375rem] leading-relaxed text-text/90;
+    font-size: var(--text-body);
+    @apply leading-relaxed text-text/90;
+  }
+
+  .text-caption {
+    font-size: var(--text-caption);
+  }
+
+  .text-ui {
+    font-size: var(--text-ui);
+  }
+
+  .text-card-title {
+    font-size: clamp(1.1875rem, calc(1.05rem + 0.45vw + 0.15vh), 1.4375rem);
+    @apply font-semibold tracking-tight text-heading;
   }
 }

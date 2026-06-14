@@ -48,7 +48,7 @@ export default function App() {
             <CaseFilterBar activeTag={activeTag} onTagChange={handleTagChange} />
 
             {filteredCases.length === 0 ? (
-              <p className="rounded-xl border border-border bg-surface p-8 text-center text-muted">
+              <p className="rounded-xl border border-border bg-surface p-10 text-center text-body text-muted">
                 No cases match this filter.
               </p>
             ) : (
