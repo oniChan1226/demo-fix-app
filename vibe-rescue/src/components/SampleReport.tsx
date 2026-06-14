@@ -9,7 +9,7 @@ type SampleReportProps = {
 export function SampleReport({ report, title, compact = false }: SampleReportProps) {
   return (
     <div
-      className={`rounded-lg border border-border bg-[#0d1117] ${
+      className={`rounded-lg border border-border bg-code-bg ${
         compact ? 'p-3' : 'p-4 sm:p-5'
       }`}
     >
@@ -19,7 +19,7 @@ export function SampleReport({ report, title, compact = false }: SampleReportPro
             <p className="text-xs font-semibold tracking-wide text-muted uppercase">
               Fix Report
             </p>
-            <p className="mt-0.5 text-sm font-medium text-white">{title}</p>
+            <p className="mt-0.5 text-sm font-medium text-heading">{title}</p>
           </div>
           <span className="rounded bg-fixed/15 px-2 py-1 font-mono text-[10px] text-fixed">
             DELIVERED

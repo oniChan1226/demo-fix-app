@@ -8,6 +8,7 @@ import { CaseFilterBar } from './components/CaseFilterBar'
 import { SampleReport } from './components/SampleReport'
 import { Testimonials } from './components/Testimonials'
 import { StickyMobileCta } from './components/StickyMobileCta'
+import { SiteHeader } from './components/SiteHeader'
 import {
   cases,
   getCasesByTag,
@@ -38,12 +39,13 @@ export default function App() {
 
   return (
     <div className="min-h-screen">
+      <SiteHeader />
       <Hero />
       <LogoRow />
       <HowItWorks />
 
       <main className="px-4 pb-24 md:pb-16">
-        <section id="cases" className="mx-auto max-w-6xl scroll-mt-24 pt-4">
+        <section id="cases" className="mx-auto max-w-6xl scroll-mt-28 pt-4">
           <CaseFilterBar activeTag={activeTag} onTagChange={handleTagChange} />
 
           {filteredCases.length === 0 ? (
@@ -61,7 +63,7 @@ export default function App() {
 
         <section className="mx-auto mt-16 max-w-3xl">
           <div className="mb-6 text-center">
-            <h2 className="text-xl font-bold text-white md:text-2xl">
+            <h2 className="text-xl font-bold text-heading md:text-2xl">
               What you receive
             </h2>
             <p className="mt-2 text-sm text-muted">

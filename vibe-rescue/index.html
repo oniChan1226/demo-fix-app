@@ -29,6 +29,15 @@
       rel="stylesheet"
     />
     <title>Vibe Rescue, Before & After</title>
+    <script>
+      (function () {
+        var t = localStorage.getItem('vibe-rescue-theme');
+        var dark =
+          t === 'dark' ||
+          (!t && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (dark) document.documentElement.classList.add('dark');
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

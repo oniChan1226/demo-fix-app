@@ -19,7 +19,7 @@ const filterTags: Array<CaseTag | 'all'> = [
 export function CaseFilterBar({ activeTag, onTagChange }: CaseFilterBarProps) {
   return (
     <div className="mb-6">
-      <h2 className="text-xl font-bold text-white md:text-2xl">
+      <h2 className="text-xl font-bold text-heading md:text-2xl">
         Which one looks like yours?
       </h2>
       <p className="mt-2 text-sm text-muted">

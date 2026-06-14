@@ -10,9 +10,9 @@ export function Hero() {
   }
 
   return (
-    <section className="relative overflow-hidden px-4 pb-10 pt-16 md:pt-24">
+    <section className="relative overflow-hidden px-4 pb-10 pt-10 md:pt-16">
       <div
-        className="pointer-events-none absolute inset-0 opacity-40"
+        className="pointer-events-none absolute inset-0 opacity-30 dark:opacity-40"
         aria-hidden="true"
         style={{
           backgroundImage:
@@ -20,7 +20,7 @@ export function Hero() {
         }}
       />
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.07]"
+        className="pointer-events-none absolute inset-0 opacity-[0.04] dark:opacity-[0.07]"
         aria-hidden="true"
         style={{
           backgroundImage:
@@ -33,7 +33,7 @@ export function Hero() {
         <p className="mb-4 inline-flex items-center rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium tracking-wide text-muted uppercase">
           {site.title}
         </p>
-        <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl md:leading-tight">
+        <h1 className="text-3xl font-bold tracking-tight text-heading sm:text-4xl md:text-5xl md:leading-tight">
           Broken AI App → Fixed &amp; Live
         </h1>
         <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted md:text-lg">
@@ -73,11 +73,6 @@ export function Hero() {
             {globalMode === 'fixed' ? 'Show all broken' : 'Show all fixed'}
           </button>
         </div>
-
-        <p className="mx-auto mt-6 max-w-xl text-xs text-muted/70">
-          Illustrative demo — each case shows a typical broken state and the result
-          after the fix.
-        </p>
       </div>
     </section>
   )

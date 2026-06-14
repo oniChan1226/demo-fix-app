@@ -5,7 +5,7 @@ export function Testimonials() {
     <section className="px-4 py-12 md:py-16">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 text-center">
-          <h2 className="text-2xl font-bold text-white md:text-3xl">
+          <h2 className="text-2xl font-bold text-heading md:text-3xl">
             Recent outcomes
           </h2>
           <p className="mt-2 text-sm text-muted">

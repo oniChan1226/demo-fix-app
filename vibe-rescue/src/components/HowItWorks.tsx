@@ -5,7 +5,7 @@ export function HowItWorks() {
     <section className="px-4 py-12 md:py-16">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 text-center">
-          <h2 className="text-2xl font-bold text-white md:text-3xl">How it works</h2>
+          <h2 className="text-2xl font-bold text-heading md:text-3xl">How it works</h2>
           <p className="mx-auto mt-3 max-w-2xl text-sm text-muted md:text-base">
             From broken app to working delivery — a clear, predictable process.
           </p>
@@ -20,7 +20,7 @@ export function HowItWorks() {
               <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-surface-elevated text-sm font-bold text-fixed">
                 {step.step}
               </span>
-              <h3 className="mt-3 text-sm font-semibold text-white">{step.title}</h3>
+              <h3 className="mt-3 text-sm font-semibold text-heading">{step.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">{step.description}</p>
             </div>
           ))}

@@ -26,7 +26,7 @@ export function CaseCard({ caseStudy }: CaseCardProps) {
   return (
     <article
       id={caseStudy.id}
-      className={`scroll-mt-24 flex flex-col rounded-xl border bg-surface p-4 transition-shadow sm:p-5 ${
+      className={`scroll-mt-28 flex flex-col rounded-xl border bg-surface p-4 transition-shadow sm:p-5 ${
         isFixed
           ? 'border-fixed/50 shadow-[0_0_24px_rgba(34,197,94,0.15)]'
           : 'border-broken/50 shadow-[0_0_24px_rgba(239,68,68,0.15)]'
@@ -50,7 +50,7 @@ export function CaseCard({ caseStudy }: CaseCardProps) {
       </div>
 
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <h2 className="text-lg font-semibold text-white">{caseStudy.title}</h2>
+        <h2 className="text-lg font-semibold text-heading">{caseStudy.title}</h2>
         <ToggleSwitch
           id={caseStudy.id}
           isFixed={isFixed}
