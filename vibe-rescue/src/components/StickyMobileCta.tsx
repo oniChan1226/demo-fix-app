@@ -1,0 +1,37 @@
+import { useEffect, useState } from 'react'
+import { site } from '../config/site'
+import { FiverrCta } from './FiverrCta'
+
+type StickyMobileCtaProps = {
+  footerRef: React.RefObject<HTMLElement | null>
+}
+
+export function StickyMobileCta({ footerRef }: StickyMobileCtaProps) {
+  const [visible, setVisible] = useState(true)
+
+  useEffect(() => {
+    const footer = footerRef.current
+    if (!footer) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setVisible(!entry.isIntersecting),
+      { threshold: 0.1 },
+    )
+
+    observer.observe(footer)
+    return () => observer.disconnect()
+  }, [footerRef])
+
+  if (!visible) return null
+
+  return (
+    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-bg/95 p-3 backdrop-blur-sm md:hidden">
+      <div className="mx-auto flex max-w-lg items-center gap-3">
+        <p className="min-w-0 flex-1 text-xs leading-snug text-muted">
+          {site.gigTagline.split(' — ')[0]}
+        </p>
+        <FiverrCta variant="compact" label="Hire on Fiverr" className="shrink-0" />
+      </div>
+    </div>
+  )
+}

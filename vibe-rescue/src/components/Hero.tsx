@@ -1,6 +1,14 @@
 import { site } from '../config/site'
+import { useDemo } from '../context/DemoContext'
+import { FiverrCta } from './FiverrCta'
 
 export function Hero() {
+  const { globalMode, setGlobalMode } = useDemo()
+
+  const toggleGlobalDemo = () => {
+    setGlobalMode(globalMode === 'fixed' ? 'broken' : 'fixed')
+  }
+
   return (
     <section className="relative overflow-hidden px-4 pb-10 pt-16 md:pt-24">
       <div
@@ -29,13 +37,46 @@ export function Hero() {
           Broken AI App → Fixed &amp; Live
         </h1>
         <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted md:text-lg">
-          A demo of common bugs in vibe-coded apps and how they look after a proper fix.
+          {site.gigTagline}
           Built by{' '}
           <span className="font-medium text-text">{site.authorName}</span>.
         </p>
-        <p className="mx-auto mt-4 max-w-xl text-sm text-muted/80">
-          This is an illustrative demo. Each case shows a typical broken state and the
-          result after the fix.
+
+        <div className="mx-auto mt-6 max-w-xl rounded-xl border border-border/60 bg-surface/60 px-4 py-3">
+          <p className="text-sm font-medium text-text">Sound familiar?</p>
+          <p className="mt-1 text-sm text-muted">
+            Built with Lovable, Bolt, or Cursor and something broke? I debug, fix,
+            and send you a clear written report.
+          </p>
+        </div>
+
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <FiverrCta label="Order on Fiverr" />
+          <a
+            href="#cases"
+            className="inline-flex min-h-11 items-center justify-center rounded-lg border border-border bg-surface px-6 py-3 text-sm font-semibold text-text transition-colors hover:border-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fixed"
+          >
+            See common issues
+          </a>
+        </div>
+
+        <div className="mt-6">
+          <button
+            type="button"
+            onClick={toggleGlobalDemo}
+            className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-border bg-surface-elevated px-4 py-2 text-sm font-medium text-muted transition-colors hover:border-muted hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fixed"
+          >
+            <span
+              className={`h-2 w-2 rounded-full ${globalMode === 'fixed' ? 'bg-fixed' : 'bg-broken'}`}
+              aria-hidden="true"
+            />
+            {globalMode === 'fixed' ? 'Show all broken' : 'Show all fixed'}
+          </button>
+        </div>
+
+        <p className="mx-auto mt-6 max-w-xl text-xs text-muted/70">
+          Illustrative demo — each case shows a typical broken state and the result
+          after the fix.
         </p>
       </div>
     </section>
