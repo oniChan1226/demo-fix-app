@@ -1,12 +1,18 @@
+import { useCallback, useMemo, useRef } from 'react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import {
+  getReportSectionContent,
+  reportSectionDefs,
+  type ReportSectionId,
+} from '../data/reportSections'
 import { sampleDeliveryReport } from '../data/sampleDeliveryReport'
-import { downloadSampleReport } from '../lib/downloadSampleReport'
+import { useReportScrollSpy } from '../hooks/useReportScrollSpy'
+import { easeOut } from '../lib/motion'
 import { PageContainer } from './PageContainer'
 
 function ReportSectionHeading({ children }: { children: string }) {
   return (
-    <h4 className="text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-muted">
-      {children}
-    </h4>
+    <h4 className="report-section-heading">{children}</h4>
   )
 }
 
@@ -14,7 +20,7 @@ function ReportParagraphs({ paragraphs }: { paragraphs: string[] }) {
   return (
     <div className="mt-3 space-y-3">
       {paragraphs.map((paragraph) => (
-        <p key={paragraph} className="text-body leading-relaxed">
+        <p key={paragraph} className="report-body-text">
           {paragraph}
         </p>
       ))}
@@ -26,7 +32,7 @@ function ReportList({ items }: { items: string[] }) {
   return (
     <ul className="mt-3 space-y-2.5">
       {items.map((item) => (
-        <li key={item} className="text-body flex gap-3 leading-relaxed">
+        <li key={item} className="report-body-text flex gap-3">
           <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-fixed" />
           <span>{item}</span>
         </li>
@@ -37,6 +43,31 @@ function ReportList({ items }: { items: string[] }) {
 
 export function DeliveryReportSection() {
   const report = sampleDeliveryReport
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const sectionRefs = useRef<Map<ReportSectionId, HTMLElement | null>>(new Map())
+  const reduceMotion = useReducedMotion()
+
+  const sectionIds = useMemo(
+    () => reportSectionDefs.map((section) => section.id),
+    [],
+  )
+
+  const { activeSection, scrollProgress } = useReportScrollSpy(scrollRef, sectionRefs, {
+    sectionIds,
+  })
+
+  const activeMeta = reportSectionDefs.find((section) => section.id === activeSection)
+
+  const setSectionRef = useCallback(
+    (id: ReportSectionId) => (node: HTMLElement | null) => {
+      sectionRefs.current.set(id, node)
+    },
+    [],
+  )
+
+  const scrollToSection = (id: ReportSectionId) => {
+    sectionRefs.current.get(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 
   return (
     <section id="report" className="scroll-mt-28 py-14 md:py-20">
@@ -49,7 +80,11 @@ export function DeliveryReportSection() {
             </p>
             <button
               type="button"
-              onClick={downloadSampleReport}
+              onClick={() => {
+                void import('../lib/downloadSampleReport').then(({ downloadSampleReport }) =>
+                  downloadSampleReport(),
+                )
+              }}
               className="text-ui mt-6 inline-flex min-h-11 w-full max-w-xs items-center justify-center gap-2 rounded-lg border border-border bg-surface px-5 py-3 font-medium text-text transition-colors hover:border-muted hover:bg-surface-elevated focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fixed sm:w-auto"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -61,17 +96,17 @@ export function DeliveryReportSection() {
                   strokeLinejoin="round"
                 />
               </svg>
-              Download sample report
+              Download sample report (PDF)
             </button>
           </div>
 
-          <article className="rounded-xl border border-border bg-surface">
+          <article className="overflow-hidden rounded-xl border border-border bg-surface">
             <header className="border-b border-border px-4 py-6 sm:px-8 sm:py-8">
               <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.25em] text-muted">
                 Fix report
               </p>
-              <h3 className="text-section mt-3">{report.issueTitle}</h3>
-              <p className="text-caption mt-3 leading-relaxed text-muted">
+              <h3 className="text-section mt-3 text-balance">{report.issueTitle}</h3>
+              <p className="report-body-text text-caption mt-3 text-muted">
                 {report.disclaimer}
               </p>
               <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
@@ -95,35 +130,107 @@ export function DeliveryReportSection() {
               </div>
             </header>
 
-            <div className="space-y-8 px-4 py-8 sm:px-8">
-              <section>
-                <ReportSectionHeading>The symptom</ReportSectionHeading>
-                <ReportParagraphs paragraphs={report.symptom} />
-              </section>
+            <div className="relative border-b border-border bg-surface-elevated/30">
+              <div
+                className="sticky top-0 z-10 border-b border-border/80 bg-surface/95 px-4 py-3 backdrop-blur-md sm:px-8"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                <div className="flex min-h-[2.75rem] items-center justify-between gap-4">
+                  <AnimatePresence mode="wait" initial={false}>
+                    <motion.p
+                      key={activeSection}
+                      initial={reduceMotion ? false : { opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
+                      transition={{ duration: 0.22, ease: easeOut }}
+                      className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-fixed"
+                    >
+                      {activeMeta?.headingUpper}
+                    </motion.p>
+                  </AnimatePresence>
+                  <span className="text-caption shrink-0 tabular-nums text-muted">
+                    {Math.round(scrollProgress)}%
+                  </span>
+                </div>
 
-              <section>
-                <ReportSectionHeading>What was actually wrong</ReportSectionHeading>
-                <ReportParagraphs paragraphs={report.whatWasWrong} />
-              </section>
+                <div
+                  className="mt-2.5 h-1 overflow-hidden rounded-full bg-border/80"
+                  role="progressbar"
+                  aria-valuenow={Math.round(scrollProgress)}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-label="Report scroll progress"
+                >
+                  <motion.div
+                    className="h-full rounded-full bg-fixed"
+                    animate={{ width: `${scrollProgress}%` }}
+                    transition={reduceMotion ? { duration: 0 } : { duration: 0.15, ease: easeOut }}
+                  />
+                </div>
 
-              <section>
-                <ReportSectionHeading>What I changed</ReportSectionHeading>
-                <ReportList items={report.whatChanged} />
-              </section>
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {reportSectionDefs.map((section) => {
+                    const isActive = section.id === activeSection
+                    return (
+                      <button
+                        key={section.id}
+                        type="button"
+                        onClick={() => scrollToSection(section.id)}
+                        aria-current={isActive ? 'true' : undefined}
+                        className={`text-caption rounded-full border px-2.5 py-1 font-medium transition-colors ${
+                          isActive
+                            ? 'border-fixed/40 bg-fixed/12 text-fixed'
+                            : 'border-transparent text-muted hover:border-border hover:text-text'
+                        }`}
+                      >
+                        {section.heading}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
 
-              <section>
-                <ReportSectionHeading>How to verify the fix</ReportSectionHeading>
-                <ReportList items={report.howToVerify} />
-              </section>
+              <div
+                ref={scrollRef}
+                className="report-scroll-body max-h-[min(70vh,36rem)] overflow-y-auto overscroll-contain px-4 py-6 sm:px-8 sm:py-8"
+              >
+                <div className="space-y-10">
+                  {reportSectionDefs.map((section) => {
+                    const content = getReportSectionContent(report, section.id)
+                    const isActive = section.id === activeSection
 
-              <section>
-                <ReportSectionHeading>How to keep it from happening again</ReportSectionHeading>
-                <ReportParagraphs paragraphs={report.prevention} />
-              </section>
+                    return (
+                      <section
+                        key={section.id}
+                        ref={setSectionRef(section.id)}
+                        data-section-id={section.id}
+                        className={`report-section scroll-mt-4 rounded-lg border px-4 py-5 transition-colors duration-300 sm:px-5 ${
+                          isActive
+                            ? 'border-fixed/25 bg-fixed/[0.03]'
+                            : 'border-transparent bg-transparent'
+                        }`}
+                      >
+                        <ReportSectionHeading>{section.heading}</ReportSectionHeading>
+                        {section.type === 'list' ? (
+                          <ReportList items={content} />
+                        ) : (
+                          <ReportParagraphs paragraphs={content} />
+                        )}
+                      </section>
+                    )
+                  })}
+                </div>
+              </div>
+
+              <div
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-surface to-transparent"
+                aria-hidden="true"
+              />
             </div>
 
             <footer className="border-t border-border bg-surface-elevated/40 px-4 py-6 sm:px-8">
-              <p className="text-body leading-relaxed text-text/90">{report.orderNote}</p>
+              <p className="report-body-text">{report.orderNote}</p>
               <p className="text-ui mt-5 font-medium text-heading">{report.authorLine}</p>
               <p className="text-caption mt-1 text-muted">{report.authorSubline}</p>
             </footer>

@@ -150,6 +150,39 @@
     padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
   }
 
+  .report-section-heading {
+    font-size: var(--text-label);
+    @apply font-semibold uppercase tracking-[0.16em] text-muted;
+    text-wrap: balance;
+  }
+
+  .report-body-text {
+    font-size: var(--text-body);
+    @apply leading-relaxed text-text/90;
+    text-wrap: pretty;
+    orphans: 3;
+    widows: 3;
+    hyphens: auto;
+  }
+
+  .report-scroll-body {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--theme-border) 80%, transparent) transparent;
+  }
+
+  .report-scroll-body::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .report-scroll-body::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    background: color-mix(in srgb, var(--theme-border) 90%, transparent);
+  }
+
+  .report-section {
+    scroll-margin-top: 0.5rem;
+  }
+
   .stack-marquee {
     position: relative;
     overflow: hidden;
