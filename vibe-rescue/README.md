@@ -24,6 +24,7 @@ npm run preview
 |------|----------------|
 | [`src/config/site.ts`](src/config/site.ts) | Author name, Fiverr URL, tagline, `siteUrl` after deploy |
 | [`src/data/cases.tsx`](src/data/cases.tsx) | Bug cases, copy, code diffs, sample reports |
+| [`src/data/sampleDeliveryReport.ts`](src/data/sampleDeliveryReport.ts) | Full delivery report sample (swap for markdown later) |
 | [`src/data/testimonials.ts`](src/data/testimonials.ts) | Client outcome quotes (anonymized) |
 | [`src/data/process.ts`](src/data/process.ts) | How-it-works steps |
 

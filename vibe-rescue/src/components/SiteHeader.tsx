@@ -1,9 +1,10 @@
 import { ThemeToggle } from './ThemeToggle'
+import { PageContainer } from './PageContainer'
 
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-banner-border bg-banner-bg/95 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-2.5 sm:py-3">
+      <PageContainer className="flex items-center gap-3 py-2.5 sm:py-3">
         <div
           className="flex min-w-0 flex-1 items-center gap-2.5"
           role="status"
@@ -19,12 +20,12 @@ export function SiteHeader() {
             <span className="font-medium text-heading">Demo only</span>
             <span className="hidden sm:inline">
               {' '}
-              — simulated scenarios, not real errors.
+              Simulated scenarios, not real errors.
             </span>
           </p>
         </div>
         <ThemeToggle />
-      </div>
+      </PageContainer>
     </header>
   )
 }

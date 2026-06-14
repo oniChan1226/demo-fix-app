@@ -107,7 +107,7 @@ export function CaseCard({ caseStudy }: CaseCardProps) {
           aria-expanded={reportOpen}
           className="flex min-h-11 w-full items-center justify-between rounded-lg border border-border bg-surface-elevated px-3 py-2 text-left text-sm text-muted transition-colors hover:border-border hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fixed"
         >
-          <span className="font-medium">View sample report</span>
+          <span className="font-medium">Issue summary</span>
           <svg
             width="16"
             height="16"

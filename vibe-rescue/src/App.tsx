@@ -5,12 +5,12 @@ import { Footer } from './components/Footer'
 import { CaseCard } from './components/CaseCard'
 import { HowItWorks } from './components/HowItWorks'
 import { CaseFilterBar } from './components/CaseFilterBar'
-import { SampleReport } from './components/SampleReport'
+import { DeliveryReportSection } from './components/DeliveryReportSection'
 import { Testimonials } from './components/Testimonials'
 import { StickyMobileCta } from './components/StickyMobileCta'
 import { SiteHeader } from './components/SiteHeader'
+import { PageContainer } from './components/PageContainer'
 import {
-  cases,
   getCasesByTag,
   getFirstCaseIdForTag,
   type CaseTag,
@@ -35,8 +35,6 @@ export default function App() {
     }
   }
 
-  const featuredReport = cases[0].report
-
   return (
     <div className="min-h-screen">
       <SiteHeader />
@@ -44,37 +42,26 @@ export default function App() {
       <LogoRow />
       <HowItWorks />
 
-      <main className="px-4 pb-24 md:pb-16">
-        <section id="cases" className="mx-auto max-w-6xl scroll-mt-28 pt-4">
-          <CaseFilterBar activeTag={activeTag} onTagChange={handleTagChange} />
+      <main className="pb-24 md:pb-16">
+        <PageContainer className="scroll-mt-28 pt-4">
+          <section id="cases">
+            <CaseFilterBar activeTag={activeTag} onTagChange={handleTagChange} />
 
-          {filteredCases.length === 0 ? (
-            <p className="rounded-xl border border-border bg-surface p-8 text-center text-muted">
-              No cases match this filter.
-            </p>
-          ) : (
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-              {filteredCases.map((caseStudy) => (
-                <CaseCard key={caseStudy.id} caseStudy={caseStudy} />
-              ))}
-            </div>
-          )}
-        </section>
+            {filteredCases.length === 0 ? (
+              <p className="rounded-xl border border-border bg-surface p-8 text-center text-muted">
+                No cases match this filter.
+              </p>
+            ) : (
+              <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                {filteredCases.map((caseStudy) => (
+                  <CaseCard key={caseStudy.id} caseStudy={caseStudy} />
+                ))}
+              </div>
+            )}
+          </section>
+        </PageContainer>
 
-        <section className="mx-auto mt-16 max-w-3xl">
-          <div className="mb-6 text-center">
-            <h2 className="text-section">
-              What you receive
-            </h2>
-            <p className="text-section-desc">
-              A written fix report with every order.
-            </p>
-          </div>
-          <SampleReport
-            report={featuredReport}
-            title={cases[0].title}
-          />
-        </section>
+        <DeliveryReportSection />
       </main>
 
       <Testimonials />

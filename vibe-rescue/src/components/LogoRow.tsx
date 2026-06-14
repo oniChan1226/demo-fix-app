@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { PageContainer } from './PageContainer'
 
 type LogoProps = {
   name: string
@@ -19,8 +20,8 @@ function Logo({ name, children }: LogoProps) {
 
 export function LogoRow() {
   return (
-    <section className="px-4 pb-12" aria-label="Built with common vibe-coding tools">
-      <div className="mx-auto max-w-4xl">
+    <section className="pb-12" aria-label="Built with common vibe-coding tools">
+      <PageContainer>
         <p className="text-label mb-4 text-center">
           Common stack
         </p>
@@ -58,7 +59,7 @@ export function LogoRow() {
             </svg>
           </Logo>
         </div>
-      </div>
+      </PageContainer>
     </section>
   )
 }

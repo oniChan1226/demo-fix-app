@@ -1,9 +1,10 @@
 import { includedItems, processSteps, stackTools } from '../data/process'
+import { PageContainer } from './PageContainer'
 
 export function HowItWorks() {
   return (
-    <section className="px-4 py-12 md:py-14">
-      <div className="mx-auto max-w-6xl">
+    <section className="py-12 md:py-14">
+      <PageContainer>
         <div className="mb-8 text-center">
           <h2 className="text-section">How it works</h2>
           <p className="text-section-desc mx-auto max-w-lg">
@@ -39,7 +40,7 @@ export function HowItWorks() {
             {stackTools.join(' · ')}
           </p>
         </div>
-      </div>
+      </PageContainer>
     </section>
   )
 }

@@ -1,9 +1,10 @@
 import { testimonials } from '../data/testimonials'
+import { PageContainer } from './PageContainer'
 
 export function Testimonials() {
   return (
-    <section className="px-4 py-12 md:py-16">
-      <div className="mx-auto max-w-6xl">
+    <section className="py-12 md:py-14">
+      <PageContainer>
         <div className="mb-8 text-center">
           <h2 className="text-section">
             Recent outcomes
@@ -27,7 +28,7 @@ export function Testimonials() {
             </article>
           ))}
         </div>
-      </div>
+      </PageContainer>
     </section>
   )
 }

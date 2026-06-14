@@ -25,7 +25,7 @@ export function StickyMobileCta({ footerRef }: StickyMobileCtaProps) {
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-bg/95 p-3 backdrop-blur-sm md:hidden">
-      <div className="mx-auto flex max-w-lg items-center gap-3">
+      <div className="mx-auto flex max-w-7xl items-center gap-3 px-4">
         <p className="min-w-0 flex-1 text-xs leading-snug text-muted">
           AI app fixes
         </p>
