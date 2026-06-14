@@ -10,7 +10,7 @@ export function Hero() {
   }
 
   return (
-    <section className="relative overflow-hidden px-4 pb-10 pt-10 md:pt-16">
+    <section className="relative overflow-hidden px-4 pb-8 pt-8 md:pb-10 md:pt-12">
       <div
         className="pointer-events-none absolute inset-0 opacity-30 dark:opacity-40"
         aria-hidden="true"
@@ -29,28 +29,16 @@ export function Hero() {
         }}
       />
 
-      <div className="relative mx-auto max-w-4xl text-center">
-        <p className="mb-4 inline-flex items-center rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium tracking-wide text-muted uppercase">
-          {site.title}
-        </p>
+      <div className="relative mx-auto max-w-3xl text-center">
         <h1 className="text-3xl font-bold tracking-tight text-heading sm:text-4xl md:text-5xl md:leading-tight">
           Broken AI App → Fixed &amp; Live
         </h1>
-        <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted md:text-lg">
-          {site.gigTagline}
-          Built by{' '}
-          <span className="font-medium text-text">{site.authorName}</span>.
+        <p className="mx-auto mt-4 max-w-xl text-base text-muted md:text-lg">
+          {site.gigTagline}{' '}
+          <span className="text-text">— {site.authorName}</span>
         </p>
 
-        <div className="mx-auto mt-6 max-w-xl rounded-xl border border-border/60 bg-surface/60 px-4 py-3">
-          <p className="text-sm font-medium text-text">Sound familiar?</p>
-          <p className="mt-1 text-sm text-muted">
-            Built with Lovable, Bolt, or Cursor and something broke? I debug, fix,
-            and send you a clear written report.
-          </p>
-        </div>
-
-        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
           <FiverrCta label="Order on Fiverr" />
           <a
             href="#cases"
@@ -58,13 +46,10 @@ export function Hero() {
           >
             See common issues
           </a>
-        </div>
-
-        <div className="mt-6">
           <button
             type="button"
             onClick={toggleGlobalDemo}
-            className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-border bg-surface-elevated px-4 py-2 text-sm font-medium text-muted transition-colors hover:border-muted hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fixed"
+            className="inline-flex min-h-11 items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted transition-colors hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fixed"
           >
             <span
               className={`h-2 w-2 rounded-full ${globalMode === 'fixed' ? 'bg-fixed' : 'bg-broken'}`}

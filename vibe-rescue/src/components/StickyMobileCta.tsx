@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { site } from '../config/site'
 import { FiverrCta } from './FiverrCta'
 
 type StickyMobileCtaProps = {
@@ -28,7 +27,7 @@ export function StickyMobileCta({ footerRef }: StickyMobileCtaProps) {
     <div className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-bg/95 p-3 backdrop-blur-sm md:hidden">
       <div className="mx-auto flex max-w-lg items-center gap-3">
         <p className="min-w-0 flex-1 text-xs leading-snug text-muted">
-          {site.gigTagline.split(' — ')[0]}
+          AI app fixes
         </p>
         <FiverrCta variant="compact" label="Hire on Fiverr" className="shrink-0" />
       </div>
