@@ -4,9 +4,9 @@ import { LogoRow } from './components/LogoRow'
 import { Footer } from './components/Footer'
 import { CaseCard } from './components/CaseCard'
 import { HowItWorks } from './components/HowItWorks'
+import { WhatToSend } from './components/WhatToSend'
 import { CaseFilterBar } from './components/CaseFilterBar'
 import { DeliveryReportSection } from './components/DeliveryReportSection'
-import { Testimonials } from './components/Testimonials'
 import { StickyMobileCta } from './components/StickyMobileCta'
 import { SiteHeader } from './components/SiteHeader'
 import { PageContainer } from './components/PageContainer'
@@ -62,9 +62,9 @@ export default function App() {
         </PageContainer>
 
         <DeliveryReportSection />
+        <WhatToSend />
       </main>
 
-      <Testimonials />
       <Footer footerRef={footerRef} />
       <StickyMobileCta footerRef={footerRef} />
     </div>

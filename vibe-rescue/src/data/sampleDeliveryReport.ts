@@ -1,57 +1,58 @@
 /**
- * Sample delivery report content.
- * Replace `body` with markdown string when the real report is ready.
+ * Fix report content — matches the Final Template.pdf structure.
+ * Edit this file when adding real client reports.
  */
-export type DeliveryReportSection = {
-  title: string
-  paragraphs?: string[]
-  items?: string[]
-}
-
-export type DeliveryReport = {
+export type FixReport = {
   id: string
-  project: string
-  completed: string
-  summary: string
-  sections: DeliveryReportSection[]
-  /** Future: raw markdown passed to a renderer */
-  markdown?: string
+  issueTitle: string
+  disclaimer: string
+  stack: string
+  severity: string
+  turnaround: string
+  symptom: string[]
+  whatWasWrong: string[]
+  whatChanged: string[]
+  howToVerify: string[]
+  prevention: string[]
+  orderNote: string
+  authorLine: string
+  authorSubline: string
 }
 
-export const sampleDeliveryReport: DeliveryReport = {
-  id: 'sample-report',
-  project: 'Client dashboard (Lovable + Supabase)',
-  completed: '12 June 2026',
-  summary:
-    'You reported a blank screen after sign in. The profile query was returning null on first load and the dashboard tried to read fields before checking. I added loading and error handling so the page waits for data or shows a clear message instead of crashing.',
-  sections: [
-    {
-      title: 'What you reported',
-      paragraphs: [
-        'After logging in, the app showed a white screen. Console showed a TypeError on the dashboard page.',
-      ],
-    },
-    {
-      title: 'What I found',
-      paragraphs: [
-        'Dashboard.tsx rendered user.name from the Supabase profile response without checking if data existed. On a slow connection or missing profile row, data was null and React threw before anything appeared on screen.',
-      ],
-    },
-    {
-      title: 'What I changed',
-      items: [
-        'Dashboard.tsx: loading state while the profile query runs',
-        'Dashboard.tsx: error screen if the query fails or returns empty',
-        'Dashboard.tsx: optional chaining on profile fields with a Guest fallback',
-      ],
-    },
-    {
-      title: 'How to confirm',
-      items: [
-        'Sign in with a test account',
-        'Dashboard should load with stats, or show an error message instead of a blank page',
-        'Hard refresh once to confirm it still works on cold load',
-      ],
-    },
+export const sampleDeliveryReport: FixReport = {
+  id: 'sample-auth-loop',
+  issueTitle: 'Auth redirect loop',
+  disclaimer:
+    'Sample report shown as an example of what you receive with every order. Project details are illustrative.',
+  stack: 'Lovable, Supabase',
+  severity: 'Critical',
+  turnaround: '1 day',
+  symptom: [
+    'Users could type in their email and password, but the login never completed. The screen sat on a spinner that said "Redirecting..." and then bounced straight back to the login page.',
+    'Some users got stuck moving between the login screen and the dashboard without ever landing on either. From the outside it looked like the password was wrong, even when it was correct.',
   ],
+  whatWasWrong: [
+    'The app was checking whether the user was signed in before Supabase had finished loading the session. On the first render the session was still empty, so the check assumed the user was logged out and sent them back to login.',
+    'A moment later the session loaded, the dashboard tried to send them in again, and the two redirects fought each other. That back and forth is the loop.',
+    'In short, the login itself worked. The real problem was timing: the redirect ran before the session was ready, using a stale read of the auth state.',
+  ],
+  whatChanged: [
+    'Added a proper loading state for auth, so the app waits until Supabase has actually resolved the session before deciding where to send the user.',
+    'Replaced the early session read with a getSession() guard that only runs the redirect once the auth state is known, not on the first empty render.',
+    'Subscribed to onAuthStateChange so login, logout, and token refresh all update the app in one reliable place instead of several competing checks.',
+    'Removed the duplicate redirect on the dashboard side that was triggering the second half of the loop.',
+  ],
+  howToVerify: [
+    'Log in with valid credentials. You now land on the dashboard once, with no flicker and no bounce back to login.',
+    'Refresh the page while signed in and you stay signed in.',
+    'Log out and you are returned to the login screen cleanly, with no loop in either direction.',
+  ],
+  prevention: [
+    'Treat the auth session as something that loads, not something that is instantly there. Before any redirect based on whether the user is logged in, wait for the session to resolve, and keep that decision in a single place.',
+    'Most auth loops in AI-built apps come from reading the session too early and from having more than one piece of code trying to redirect at the same time.',
+  ],
+  orderNote:
+    'What you get with every order: the working fix, tested before delivery, plus a report like this one that explains what was broken, why it happened, and exactly what changed.',
+  authorLine: 'Fahad Khan | Full-stack developer (React, Next.js, Node, Supabase)',
+  authorSubline: 'Maker of Forge, a live productivity SaaS.',
 }

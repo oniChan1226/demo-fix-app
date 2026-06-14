@@ -1,6 +1,39 @@
 import { sampleDeliveryReport } from '../data/sampleDeliveryReport'
 import { PageContainer } from './PageContainer'
 
+function ReportSectionHeading({ children }: { children: string }) {
+  return (
+    <h4 className="text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-muted">
+      {children}
+    </h4>
+  )
+}
+
+function ReportParagraphs({ paragraphs }: { paragraphs: string[] }) {
+  return (
+    <div className="mt-3 space-y-3">
+      {paragraphs.map((paragraph) => (
+        <p key={paragraph} className="text-body leading-relaxed">
+          {paragraph}
+        </p>
+      ))}
+    </div>
+  )
+}
+
+function ReportList({ items }: { items: string[] }) {
+  return (
+    <ul className="mt-3 space-y-2.5">
+      {items.map((item) => (
+        <li key={item} className="text-body flex gap-3 leading-relaxed">
+          <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-fixed" />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 export function DeliveryReportSection() {
   const report = sampleDeliveryReport
 
@@ -11,51 +44,61 @@ export function DeliveryReportSection() {
           <div className="mb-10 text-center">
             <h2 className="text-section">Sample delivery report</h2>
             <p className="text-section-desc">
-              What you receive after a fix. Real report content will replace this placeholder.
+              The same format you receive after every fix on Fiverr.
             </p>
           </div>
 
           <article className="rounded-xl border border-border bg-surface">
-            <header className="border-b border-border px-6 py-6 sm:px-8 sm:py-7">
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div>
-                  <p className="text-label">Fix report</p>
-                  <h3 className="text-card-title mt-2">{report.project}</h3>
-                </div>
-                <p className="text-caption text-muted sm:text-ui">
-                  Completed {report.completed}
+            <header className="border-b border-border px-6 py-7 sm:px-8 sm:py-8">
+              <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.25em] text-muted">
+                Fix report
+              </p>
+              <h3 className="text-section mt-3">{report.issueTitle}</h3>
+              <p className="text-caption mt-3 leading-relaxed text-muted">
+                {report.disclaimer}
+              </p>
+              <div className="mt-5 flex flex-wrap items-center gap-3">
+                <span className="inline-flex rounded-md bg-fixed/15 px-3 py-1 text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-fixed">
+                  Fixed &amp; verified
+                </span>
+                <p className="text-caption text-muted">
+                  Stack: {report.stack} · Severity: {report.severity} · Turnaround:{' '}
+                  {report.turnaround}
                 </p>
               </div>
-              <p className="text-body mt-5">{report.summary}</p>
             </header>
 
-            <div className="divide-y divide-border px-6 sm:px-8">
-              {report.sections.map((section) => (
-                <section key={section.title} className="py-6">
-                  <h4 className="text-label">{section.title}</h4>
-                  {section.paragraphs?.map((paragraph) => (
-                    <p key={paragraph} className="text-body mt-3">
-                      {paragraph}
-                    </p>
-                  ))}
-                  {section.items && (
-                    <ul className="mt-4 space-y-2.5">
-                      {section.items.map((item) => (
-                        <li key={item} className="text-body flex gap-3 pl-0.5">
-                          <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-muted" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </section>
-              ))}
+            <div className="space-y-8 px-6 py-8 sm:px-8">
+              <section>
+                <ReportSectionHeading>The symptom</ReportSectionHeading>
+                <ReportParagraphs paragraphs={report.symptom} />
+              </section>
+
+              <section>
+                <ReportSectionHeading>What was actually wrong</ReportSectionHeading>
+                <ReportParagraphs paragraphs={report.whatWasWrong} />
+              </section>
+
+              <section>
+                <ReportSectionHeading>What I changed</ReportSectionHeading>
+                <ReportList items={report.whatChanged} />
+              </section>
+
+              <section>
+                <ReportSectionHeading>How to verify the fix</ReportSectionHeading>
+                <ReportList items={report.howToVerify} />
+              </section>
+
+              <section>
+                <ReportSectionHeading>How to keep it from happening again</ReportSectionHeading>
+                <ReportParagraphs paragraphs={report.prevention} />
+              </section>
             </div>
 
-            <footer className="border-t border-border px-6 py-5 sm:px-8">
-              <p className="text-caption leading-relaxed text-muted">
-                Prepared by Fahad Khan. This is a sample layout for portfolio purposes.
-              </p>
+            <footer className="border-t border-border bg-surface-elevated/40 px-6 py-6 sm:px-8">
+              <p className="text-body leading-relaxed text-text/90">{report.orderNote}</p>
+              <p className="text-ui mt-5 font-medium text-heading">{report.authorLine}</p>
+              <p className="text-caption mt-1 text-muted">{report.authorSubline}</p>
             </footer>
           </article>
         </div>

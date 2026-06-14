@@ -1,8 +1,11 @@
 # Vibe Rescue, Before & After
 
-A single-page React portfolio demo for the **Fix your AI app** Fiverr gig. Shows common bugs in vibe-coded apps (Lovable, Bolt, Cursor, Supabase) with interactive before/after previews.
+Interactive portfolio demo for the **Fix your AI app** Fiverr gig. Shows common bugs in vibe-coded apps (Lovable, Bolt, Cursor, Supabase) with before/after previews.
 
 Built by **Fahad Khan**.
+
+**Live:** https://demo-before-and-after-fix-seven.vercel.app  
+**Fiverr:** https://www.fiverr.com/s/DB49j3a
 
 ## Quick start
 
@@ -22,11 +25,10 @@ npm run preview
 
 | File | What to edit |
 |------|----------------|
-| [`src/config/site.ts`](src/config/site.ts) | Author name, Fiverr URL, tagline, `siteUrl` after deploy |
-| [`src/data/cases.tsx`](src/data/cases.tsx) | Bug cases, copy, code diffs, sample reports |
-| [`src/data/sampleDeliveryReport.ts`](src/data/sampleDeliveryReport.ts) | Full delivery report sample (swap for markdown later) |
-| [`src/data/testimonials.ts`](src/data/testimonials.ts) | Client outcome quotes (anonymized) |
-| [`src/data/process.ts`](src/data/process.ts) | How-it-works steps |
+| [`src/config/site.ts`](src/config/site.ts) | Author name, Fiverr URL, site URL, hero tagline |
+| [`src/data/gigContent.ts`](src/data/gigContent.ts) | What to send steps |
+| [`src/data/sampleDeliveryReport.ts`](src/data/sampleDeliveryReport.ts) | Delivery report content |
+| [`src/data/cases.tsx`](src/data/cases.tsx) | Bug cases, copy, code diffs |
 
 ## Deploy
 
@@ -35,12 +37,11 @@ Build outputs to `dist/`. Deploy to **Vercel** or **Netlify**:
 - **Build command:** `npm run build`
 - **Output directory:** `dist`
 
-After deploying, set `siteUrl` in `site.ts` to your live URL for absolute Open Graph links.
-
-**Live URL:** _(add after deploy)_
+Update `siteUrl` in `site.ts` and absolute `og:*` URLs in `index.html` if the domain changes.
 
 ## Stack
 
 - Vite + React + TypeScript
 - Tailwind CSS v4
+- Motion (toggle animation only)
 - No backend — all data mocked
