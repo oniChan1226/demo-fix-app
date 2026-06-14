@@ -63,11 +63,11 @@ export default function App() {
 
         <section className="mx-auto mt-16 max-w-3xl">
           <div className="mb-6 text-center">
-            <h2 className="text-xl font-bold text-heading md:text-2xl">
+            <h2 className="text-section">
               What you receive
             </h2>
-            <p className="mt-2 text-sm text-muted">
-              Every order includes a written fix report like this one.
+            <p className="text-section-desc">
+              A written fix report with every order.
             </p>
           </div>
           <SampleReport

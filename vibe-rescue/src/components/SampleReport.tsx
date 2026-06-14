@@ -16,12 +16,12 @@ export function SampleReport({ report, title, compact = false }: SampleReportPro
       {title && (
         <div className="mb-4 flex items-center justify-between border-b border-border pb-3">
           <div>
-            <p className="text-xs font-semibold tracking-wide text-muted uppercase">
-              Fix Report
+            <p className="text-label">Fix report</p>
+            <p className="mt-1 text-sm font-semibold tracking-tight text-heading">
+              {title}
             </p>
-            <p className="mt-0.5 text-sm font-medium text-heading">{title}</p>
           </div>
-          <span className="rounded bg-fixed/15 px-2 py-1 font-mono text-[10px] text-fixed">
+          <span className="rounded bg-fixed/15 px-2 py-0.5 font-mono text-[10px] font-medium tracking-wide text-fixed">
             DELIVERED
           </span>
         </div>
@@ -31,16 +31,11 @@ export function SampleReport({ report, title, compact = false }: SampleReportPro
         <ReportSection label="Symptom" content={report.symptom} />
         <ReportSection label="Root cause" content={report.rootCause} />
         <div>
-          <p className="text-[10px] font-semibold tracking-wide text-muted uppercase">
-            What I changed
-          </p>
-          <ul className="mt-1.5 space-y-1">
+          <p className="text-label">What I changed</p>
+          <ul className="mt-2 space-y-1.5">
             {report.changes.map((change) => (
-              <li
-                key={change}
-                className="flex gap-2 text-sm leading-relaxed text-text/90"
-              >
-                <span className="text-fixed">•</span>
+              <li key={change} className="text-body flex gap-2">
+                <span className="text-fixed">·</span>
                 <span>{change}</span>
               </li>
             ))}
@@ -56,10 +51,8 @@ export function SampleReport({ report, title, compact = false }: SampleReportPro
 function ReportSection({ label, content }: { label: string; content: string }) {
   return (
     <div>
-      <p className="text-[10px] font-semibold tracking-wide text-muted uppercase">
-        {label}
-      </p>
-      <p className="mt-1 text-sm leading-relaxed text-text/90">{content}</p>
+      <p className="text-label">{label}</p>
+      <p className="text-body mt-1.5">{content}</p>
     </div>
   )
 }

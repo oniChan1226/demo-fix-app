@@ -5,11 +5,11 @@ export function Testimonials() {
     <section className="px-4 py-12 md:py-16">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 text-center">
-          <h2 className="text-2xl font-bold text-heading md:text-3xl">
+          <h2 className="text-section">
             Recent outcomes
           </h2>
-          <p className="mt-2 text-sm text-muted">
-            Anonymized results from AI app fix projects.
+          <p className="text-section-desc">
+            Anonymized fix results.
           </p>
         </div>
 
@@ -19,7 +19,7 @@ export function Testimonials() {
               key={item.id}
               className="w-[280px] shrink-0 snap-start rounded-xl border border-border bg-surface p-5 md:w-auto"
             >
-              <p className="text-sm leading-relaxed text-text/90">
+              <p className="text-sm leading-relaxed tracking-tight text-text/90">
                 &ldquo;{item.quote}&rdquo;
               </p>
               <p className="mt-3 text-xs font-medium text-fixed">{item.stack}</p>

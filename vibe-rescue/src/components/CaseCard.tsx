@@ -36,7 +36,7 @@ export function CaseCard({ caseStudy }: CaseCardProps) {
         {caseStudy.tags.map((tag) => (
           <span
             key={tag}
-            className="rounded-full border border-border bg-surface-elevated px-2 py-0.5 text-[10px] font-medium text-muted"
+            className="rounded-full border border-border bg-surface-elevated px-2 py-0.5 text-[10px] font-medium tracking-wide text-muted"
           >
             {tagLabels[tag]}
           </span>
@@ -50,7 +50,9 @@ export function CaseCard({ caseStudy }: CaseCardProps) {
       </div>
 
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <h2 className="text-lg font-semibold text-heading">{caseStudy.title}</h2>
+        <h2 className="text-base font-semibold tracking-tight text-heading sm:text-lg">
+          {caseStudy.title}
+        </h2>
         <ToggleSwitch
           id={caseStudy.id}
           isFixed={isFixed}
@@ -76,19 +78,15 @@ export function CaseCard({ caseStudy }: CaseCardProps) {
 
       <div className="mt-4 space-y-3">
         <div>
-          <p className="text-xs font-semibold tracking-wide text-muted uppercase">
-            What was wrong
-          </p>
-          <p className="mt-1 text-sm leading-relaxed text-text/90">
+          <p className="text-label">What was wrong</p>
+          <p className="text-body mt-1.5">
             {caseStudy.whatWasWrong}
           </p>
         </div>
 
         <div className="rounded-lg border border-border/60 bg-surface-elevated/50 px-3 py-2.5">
-          <p className="text-xs font-semibold tracking-wide text-muted uppercase">
-            The fix
-          </p>
-          <p className="mt-1.5 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-sm leading-relaxed">
+          <p className="text-label">The fix</p>
+          <p className="mt-2 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-sm leading-relaxed">
             <span className="text-broken">{caseStudy.problem}</span>
             <span className="text-muted" aria-hidden="true">
               →

@@ -15,22 +15,24 @@
   --color-code-bg: var(--theme-code-bg);
   --color-banner-bg: var(--theme-banner-bg);
   --color-banner-border: var(--theme-banner-border);
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --tracking-tighter: -0.03em;
+  --tracking-label: 0.14em;
 }
 
 :root {
   color-scheme: light;
-  --theme-bg: #f8fafc;
+  --theme-bg: #fafbfc;
   --theme-surface: #ffffff;
-  --theme-surface-elevated: #f1f5f9;
-  --theme-border: #e2e8f0;
-  --theme-muted: #64748b;
-  --theme-text: #334155;
-  --theme-heading: #0f172a;
-  --theme-code-bg: #f1f5f9;
-  --theme-banner-bg: #eff6ff;
-  --theme-banner-border: #bfdbfe;
+  --theme-surface-elevated: #f4f6f8;
+  --theme-border: #e8ecf0;
+  --theme-muted: #6b7280;
+  --theme-text: #374151;
+  --theme-heading: #111827;
+  --theme-code-bg: #f4f6f8;
+  --theme-banner-bg: #f8fafc;
+  --theme-banner-border: #e8ecf0;
 }
 
 .dark {
@@ -39,9 +41,9 @@
   --theme-surface: #161b22;
   --theme-surface-elevated: #1c2129;
   --theme-border: #2a3140;
-  --theme-muted: #94a3b8;
-  --theme-text: #e2e8f0;
-  --theme-heading: #ffffff;
+  --theme-muted: #8b95a8;
+  --theme-text: #c9d1dc;
+  --theme-heading: #f3f4f6;
   --theme-code-bg: #0d1117;
   --theme-banner-bg: #161b22;
   --theme-banner-border: #2a3140;
@@ -50,6 +52,9 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -67,13 +72,46 @@
   }
 
   body {
-    @apply bg-bg text-text font-sans antialiased;
+    @apply bg-bg text-text font-sans;
     margin: 0;
     min-height: 100vh;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    letter-spacing: -0.011em;
     transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   #root {
     min-height: 100vh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-heading font-semibold tracking-tight;
+    text-wrap: balance;
+  }
+}
+
+@layer components {
+  .text-display {
+    @apply text-[2rem] font-semibold leading-[1.12] tracking-[-0.03em] text-heading sm:text-4xl md:text-[2.75rem];
+  }
+
+  .text-section {
+    @apply text-xl font-semibold leading-snug tracking-[-0.02em] text-heading md:text-2xl;
+  }
+
+  .text-section-desc {
+    @apply mt-2 text-sm leading-relaxed text-muted md:text-[0.9375rem];
+  }
+
+  .text-label {
+    @apply text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-muted;
+  }
+
+  .text-body {
+    @apply text-[0.9375rem] leading-relaxed text-text/90;
   }
 }

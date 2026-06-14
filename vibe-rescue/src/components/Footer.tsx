@@ -12,9 +12,8 @@ export function Footer({ footerRef }: FooterProps) {
       className="border-t border-border px-4 py-12 md:py-16"
     >
       <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 text-center">
-        <p className="max-w-xl text-base leading-relaxed text-muted md:text-lg">
-          Every real fix comes with a written report — what was broken, why, and
-          exactly what I changed.
+        <p className="max-w-md text-sm leading-relaxed text-muted md:text-[0.9375rem]">
+          Every fix includes a written report — what broke, why, and what changed.
         </p>
         <FiverrCta label="Hire me on Fiverr" />
         <p className="text-xs text-muted/60">

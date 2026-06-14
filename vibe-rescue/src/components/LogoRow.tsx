@@ -8,11 +8,11 @@ type LogoProps = {
 function Logo({ name, children }: LogoProps) {
   return (
     <div
-      className="flex shrink-0 items-center gap-2 rounded-lg border border-border/60 bg-surface/60 px-4 py-2.5 text-muted transition-colors hover:border-border hover:text-text"
+      className="flex shrink-0 items-center gap-2 rounded-lg border border-border/60 bg-surface/60 px-3.5 py-2 text-muted transition-colors hover:border-border hover:text-text"
       title={name}
     >
       {children}
-      <span className="text-sm font-medium">{name}</span>
+      <span className="text-[0.8125rem] font-medium tracking-tight">{name}</span>
     </div>
   )
 }
@@ -21,8 +21,8 @@ export function LogoRow() {
   return (
     <section className="px-4 pb-12" aria-label="Built with common vibe-coding tools">
       <div className="mx-auto max-w-4xl">
-        <p className="mb-4 text-center text-xs font-medium tracking-wider text-muted uppercase">
-          Common stack in vibe-coded apps
+        <p className="text-label mb-4 text-center">
+          Common stack
         </p>
         <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:justify-center [&::-webkit-scrollbar]:hidden">
           <Logo name="Lovable">
